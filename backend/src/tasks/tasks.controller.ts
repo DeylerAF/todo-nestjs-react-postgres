@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   Param,
   ParseIntPipe,
   Patch,
@@ -32,6 +33,7 @@ export class TasksController {
   }
 
   @Delete(':id')
+  @HttpCode(204)
   deleteTask(@Param('id', ParseIntPipe) id: number) {
     return this.tasksService.deleteTask(id);
   }
@@ -40,7 +42,7 @@ export class TasksController {
   updateTask(
     @Param('id', ParseIntPipe) id: number,
     @Body() task: UpdateTaskDto,
-) {
+  ) {
     return this.tasksService.updateTask(id, task);
   }
 }
