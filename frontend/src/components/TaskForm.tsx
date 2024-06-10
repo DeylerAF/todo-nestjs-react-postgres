@@ -29,24 +29,24 @@ function TaskForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="flex flex-col justify-center items-center">
       <input
         name="title"
         type="text"
         placeholder="Add a task"
         onChange={handleChange}
-        className="border-2 border-gray-700 p-2 rounded-lg bg-zinc-800 block w-full my-2"
+        className="border-2 border-gray-700 p-2 rounded-lg bg-zinc-800 block w-full mt-5 mb-2"
       />
 
       <textarea
         name="description"
         rows={3}
         onChange={handleChange}
-        className="border-2 border-gray-700 p-2 rounded-lg bg-zinc-800 block w-full my-2"
+        className="border-2 border-gray-700 p-2 rounded-lg bg-zinc-800 block w-full mb-2"
         placeholder="Write a description"
       ></textarea>
 
-      <label className="inline-flex items-center gap-x-2">
+      <label className="hidden">
         <input
           type="checkbox"
           value={task.status ? 1 : 0}
@@ -60,7 +60,7 @@ function TaskForm() {
         />
       </label>
 
-      <button type="submit" className="bg-lime-900 px-3 block py-2 w-full">
+      <button type="submit" className="bg-lime-900 rounded-sm px-3 block py-2 w-20 mb-5 hover:bg-lime-800 hover:cursor-pointer">
         Save
       </button>
     </form>
