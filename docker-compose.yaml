@@ -1,0 +1,48 @@
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:alpine
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    ports:
+      - "5432:5432"
+    restart: always
+    networks:
+      - nestjs-postgres
+
+  backend:
+    restart: always
+    build:
+      context: backend
+      target: development
+    container_name: backend
+    volumes:
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - postgres
+    networks:
+      - nestjs-postgres
+      - react-nestjs
+    ports:
+      - 3000:3000
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "80:80"
+    restart: always
+
+networks:
+  react-nestjs:
+  nestjs-postgres:
+
+volumes:
+  postgres_data:
